@@ -108,6 +108,7 @@ body {
 }
 
 /* Glass Panel */
+/* Glass Panel */
 .glass-panel {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(20px);
@@ -120,7 +121,7 @@ body {
   height: 85vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* Changed from center to fix header pos */
   align-items: center;
   padding: 4rem;
   position: relative;
@@ -133,6 +134,16 @@ h2,
 h3 {
   font-family: var(--font-display);
   font-weight: 700;
+}
+
+/* Ensure content is centered in the remaining space */
+.grid-content,
+.center-content,
+.clean-list,
+.stats-row {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 100%;
 }
 
 .eyebrow {
