@@ -1,0 +1,317 @@
+:root {
+  --bg-dark: #050505;
+  --text-main: #ffffff;
+  --text-muted: #rgba(255, 255, 255, 0.7);
+  --accent-gold: #cfb53b; /* Premium gold accent */
+  --accent-blue: #4facfe;
+
+  --font-display: "Playfair Display", serif;
+  --font-sans: "Outfit", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  overflow-x: hidden; /* Lenis handles scroll */
+}
+
+/* --- Animated Background --- */
+.fixed-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+  background: #000;
+}
+
+.gradient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+  animation: float 20s infinite alternate ease-in-out;
+}
+
+.blob-1 {
+  width: 600px;
+  height: 600px;
+  background: #4facfe;
+  top: -10%;
+  left: -10%;
+}
+
+.blob-2 {
+  width: 500px;
+  height: 500px;
+  background: #7bdcb5; /* Minty */
+  bottom: -10%;
+  right: -10%;
+  animation-delay: -5s;
+}
+
+.blob-3 {
+  width: 400px;
+  height: 400px;
+  background: #764ba2; /* Purple */
+  top: 40%;
+  left: 40%;
+  animation-delay: -10s;
+}
+
+.noise-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(100px, 50px) rotate(20deg);
+  }
+}
+
+/* --- Slides Structure --- */
+.presentation-container {
+  width: 100%;
+}
+
+.slide {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  position: relative;
+  /* We'll use simple layout, let GSAP Pinning handle the 'stacking' feel if we want,
+       BUT for true stacking, we often set section { min-height: 100vh } and ScrollTrigger pins them. */
+}
+
+/* Glass Panel */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  width: 90%;
+  max-width: 1200px;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- Typography & Elements --- */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 0.9rem;
+  color: var(--accent-blue);
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.mega-title {
+  font-size: 6vw;
+  line-height: 1;
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: column;
+}
+
+.mega-title .line {
+  display: block;
+  mix-blend-mode: overlay; /* Cool effect */
+}
+
+.mega-title .highlight {
+  color: var(--accent-gold);
+  mix-blend-mode: normal;
+  font-style: italic;
+}
+
+.hero-desc {
+  font-size: 1.5rem;
+  max-width: 600px;
+  margin-top: 2rem;
+  opacity: 0.8;
+}
+
+.scroll-instruction {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.6;
+}
+
+.line-anim {
+  width: 1px;
+  height: 40px;
+  background: #fff;
+  animation: scrollLine 2s infinite;
+  transform-origin: top;
+}
+
+@keyframes scrollLine {
+  0% {
+    transform: scaleY(0);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0) translateY(40px);
+  }
+}
+
+/* Slider Headers */
+.slide-header {
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 2rem;
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.slide-num {
+  font-family: var(--font-sans);
+  font-size: 4rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.05);
+  line-height: 0.8;
+}
+
+.slide-header h2 {
+  font-size: 3rem;
+}
+
+/* Grid Content */
+.grid-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  width: 100%;
+}
+
+.feature-card {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border-left: 3px solid var(--accent-blue);
+}
+
+.feature-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-sans);
+}
+
+.feature-card p {
+  font-size: 1.1rem;
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+/* Center Content */
+.center-content {
+  text-align: center;
+}
+.quote {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-style: italic;
+  margin-bottom: 3rem;
+}
+.stats-row {
+  display: flex;
+  gap: 4rem;
+  justify-content: center;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+.stat .number {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+.stat .label {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* List */
+.clean-list {
+  list-style: none;
+  text-align: center;
+}
+.clean-list li {
+  font-size: 3rem;
+  margin: 1rem 0;
+  font-family: var(--font-display);
+  opacity: 0.5;
+  transition: 0.3s;
+}
+.clean-list li:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  color: var(--accent-blue);
+}
+
+/* Vision */
+.final-text {
+  font-size: 3rem;
+  text-align: center;
+  max-width: 800px;
+  margin: 2rem 0;
+  line-height: 1.2;
+}
+.signature {
+  margin-top: 2rem;
+  font-family:
+    "Sacramento", cursive; /* Fallback if not loaded, sticking to Playfair Italic */
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--accent-gold);
+}
