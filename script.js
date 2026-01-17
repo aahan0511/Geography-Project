@@ -47,67 +47,65 @@ slides.forEach((slide, i) => {
   // Actually, simply using `pin: true` on each section often results in them stacking
   // if `pinSpacing: false` is used.
 
-  ScrollTrigger.create({
-    trigger: slide,
-    start: "top top",
-    pin: true,
-    pinSpacing: false, // This causes the next section to scroll OVER this pinned one
-    end: "bottom top", // Pin lasts until the bottom of the element hits the top? No, that clears it immediately.
-    // Actually we want it pinned until the user has viewed it enough.
-    // For a full stack effect where the next section covers the current one:
-    // We need the 'end' to be essentially "+=100%" (the window height).
-    // But since we are pinSpacing: false, the next section is *already* under it?
-    // No, `pinSpacing: false` means the space needed for the pin is removed, so the next section flows up immediately.
-    // But since we want them to be full screen, the next section is simply below.
-
-    // Let's rely on z-index automatically handling stacking if we defined it?
-    // style.css needs z-indexes?
-    // Actually, let's keep it simple:
-    // Standard "Sticky" CSS is the easiest way to do card stacking without complex GSAP logic.
-    // Let's switch logic to CSS Sticky for the container?
+    // CSS Sticky handles the pinning. We just trigger animations.
   });
+
+  // Scale down the CURRENT slide as the NEXT slide enters
+  if (i < slides.length - 1) {
+    const nextSlide = slides[i + 1];
+    gsap.to(slide, {
+        scale: 0.85,
+        opacity: 0.5,
+        scrollTrigger: {
+            trigger: nextSlide,
+            start: "top bottom", // when next slide enters from bottom
+            end: "top top",      // when next slide fully covers (reaches top)
+            scrub: true
+        }
+    });
+  }
 
   // Inner Animations (Trigger when the slide becomes active)
   let tl = gsap.timeline({
     scrollTrigger: {
-      trigger: slide,
+      trigger: slide, // Keep this triggered by the slide itself
       start: "top center",
       toggleActions: "play none none reverse",
     },
   });
 
-  const content = slide.querySelector(".glass-panel");
+  // ... rest of inner animations ... 
+  // (We need to ensure we don't break the existing code structure)
+  // Re-selecting logic to insert cleaner:
+  
   const header = slide.querySelector(".slide-header");
   const items = slide.querySelectorAll(
-    ".feature-card, .clean-list li, .stat, .quote"
+    ".feature-card, .clean-list li, .stat, .quote, .mega-title .line, .hero-desc"
   );
-
-  // Animate the glass panel popping up or fading in?
-  // Actually it's already there. Let's just animate the contents.
-
-  if (header) {
-    tl.from(header, { y: 30, opacity: 0, duration: 0.8, ease: "power2.out" });
-  }
-
-  if (items.length > 0) {
-    tl.from(
-      items,
-      {
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power2.out",
-      },
-      "-=0.4"
-    );
+  
+  if (slide.id !== 'slide-hero') {
+      if (header) {
+        tl.from(header, { y: 30, opacity: 0, duration: 0.8, ease: "power2.out" });
+      }
+      if (items.length > 0) {
+        tl.from(items, { 
+            y: 50, 
+            opacity: 0, 
+            duration: 0.8, 
+            stagger: 0.1, 
+            ease: "power2.out" 
+        }, "-=0.4");
+      }
   }
 });
 
-// Since we are using GSAP Pinning with pinSpacing: false, let's explicitely set z-indices to ensure correct stacking order
+// Z-Index handling
 slides.forEach((slide, i) => {
-  slide.style.zIndex = i;
+  slide.style.zIndex = i + 1;
 });
+
+// Since we use Scale, we need transform-origin to be consistent
+// It's handled in CSS or defaults to center. Center is good for the "receding" look.
 
 // Fix for Lenis + ScrollTrigger Pinning
 // ScrollTrigger acts on the scroll position. Lenis changes it.

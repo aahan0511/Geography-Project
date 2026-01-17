@@ -101,7 +101,10 @@ body {
   padding: 2rem;
   position: relative;
   /* We'll use simple layout, let GSAP Pinning handle the 'stacking' feel if we want,
-       BUT for true stacking, we often set section { min-height: 100vh } and ScrollTrigger pins them. */
+     BUT for true stacking, we often set section { min-height: 100vh } and ScrollTrigger pins them. */
+  /* Switching to Sticky for smoother stacking */
+  position: sticky;
+  top: 0;
 }
 
 /* Glass Panel */
