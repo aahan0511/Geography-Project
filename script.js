@@ -50,62 +50,47 @@ slides.forEach((slide, i) => {
     // CSS Sticky handles the pinning. We just trigger animations.
   });
 
-  // Scale down the CURRENT slide as the NEXT slide enters
-  if (i < slides.length - 1) {
-    const nextSlide = slides[i + 1];
-    gsap.to(slide, {
-        scale: 0.85,
-        opacity: 0.5,
-        scrollTrigger: {
-            trigger: nextSlide,
-            start: "top bottom", // when next slide enters from bottom
-            end: "top top",      // when next slide fully covers (reaches top)
-            scrub: true
-        }
-    });
-  }
-
   // Inner Animations (Trigger when the slide becomes active)
   let tl = gsap.timeline({
     scrollTrigger: {
-      trigger: slide, // Keep this triggered by the slide itself
+      trigger: slide,
       start: "top center",
       toggleActions: "play none none reverse",
     },
   });
 
-  // ... rest of inner animations ... 
-  // (We need to ensure we don't break the existing code structure)
-  // Re-selecting logic to insert cleaner:
-  
+  const content = slide.querySelector(".glass-panel");
   const header = slide.querySelector(".slide-header");
   const items = slide.querySelectorAll(
-    ".feature-card, .clean-list li, .stat, .quote, .mega-title .line, .hero-desc"
+    ".feature-card, .clean-list li, .stat, .quote"
   );
-  
-  if (slide.id !== 'slide-hero') {
-      if (header) {
-        tl.from(header, { y: 30, opacity: 0, duration: 0.8, ease: "power2.out" });
-      }
-      if (items.length > 0) {
-        tl.from(items, { 
-            y: 50, 
-            opacity: 0, 
-            duration: 0.8, 
-            stagger: 0.1, 
-            ease: "power2.out" 
-        }, "-=0.4");
-      }
+
+  // Animate the glass panel popping up or fading in?
+  // Actually it's already there. Let's just animate the contents.
+
+  if (header) {
+    tl.from(header, { y: 30, opacity: 0, duration: 0.8, ease: "power2.out" });
+  }
+
+  if (items.length > 0) {
+    tl.from(
+      items,
+      {
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out",
+      },
+      "-=0.4"
+    );
   }
 });
 
-// Z-Index handling
+// Since we are using GSAP Pinning with pinSpacing: false, let's explicitely set z-indices to ensure correct stacking order
 slides.forEach((slide, i) => {
-  slide.style.zIndex = i + 1;
+  slide.style.zIndex = i;
 });
-
-// Since we use Scale, we need transform-origin to be consistent
-// It's handled in CSS or defaults to center. Center is good for the "receding" look.
 
 // Fix for Lenis + ScrollTrigger Pinning
 // ScrollTrigger acts on the scroll position. Lenis changes it.
