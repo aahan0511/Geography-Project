@@ -404,6 +404,7 @@ h3 {
   gap: 0.5rem;
   margin-top: 1.5rem;
   padding: 0.75rem 1.5rem;
+  /* Use a theme-adaptive background if possible, or a safer static one */
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid var(--border-color);
   border-radius: 50px;
@@ -414,6 +415,12 @@ h3 {
   font-weight: 500;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Specific background adjustment for light mode to ensure visibility */
+body.light-mode .github-link {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .github-link:hover {
@@ -422,9 +429,15 @@ h3 {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+body.light-mode .github-link:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
 .github-link svg {
   width: 20px;
   height: 20px;
+  flex-shrink: 0; /* Prevent icon from squashing */
+  display: block;
 }
 
 /* Theme Toggle Button */
