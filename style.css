@@ -414,7 +414,7 @@ h3 {
   text-decoration: none !important; /* Force remove underline */
   font-family: "Outfit", sans-serif; /* Explicit font */
   font-size: 1rem;
-  font-weight: 600; /* Bolder text */
+  font-weight: 500; /* Reduced from 600 */
   letter-spacing: 0.5px;
   line-height: 1;
   backdrop-filter: blur(12px);
