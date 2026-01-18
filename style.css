@@ -27,12 +27,12 @@ body {
 
 /* Light mode */
 body.light-mode {
-  --bg-color: var(--bg-light);
+  --bg-color: #e0e0e0; /* Slightly darker/warmer grey, "less light" */
   --text-color: var(--text-dark);
   --text-secondary: rgba(0, 0, 0, 0.7);
-  --panel-bg: var(--panel-bg-light);
-  --border-color: var(--border-light);
-  --blob-opacity: 0.3;
+  --panel-bg: rgba(255, 255, 255, 0.65); /* More transparent to show blobs */
+  --border-color: rgba(0, 0, 0, 0.1);
+  --blob-opacity: 0.8; /* High opacity so they show through the light bg */
 }
 
 /* Glass mode (Transparent & High Blur) */
@@ -396,6 +396,35 @@ h3 {
   font-style: italic;
   font-size: 2rem;
   color: var(--accent-gold);
+}
+
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
+  border-radius: 50px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.github-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.github-link svg {
+  width: 20px;
+  height: 20px;
 }
 
 /* Theme Toggle Button */
