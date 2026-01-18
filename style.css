@@ -398,46 +398,45 @@ h3 {
   color: var(--accent-gold);
 }
 
-.github-link {
+/* GitHub Button */
+.github-link,
+.github-link:visited,
+.github-link:active {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
-  padding: 0.75rem 1.5rem;
-  /* Use a theme-adaptive background if possible, or a safer static one */
+  gap: 0.75rem; /* Slightly wider gap */
+  margin-top: 2rem;
+  padding: 0.8rem 2rem; /* Larger padding for pill shape */
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--border-color);
-  border-radius: 50px;
-  color: var(--text-color);
-  text-decoration: none;
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  white-space: nowrap; /* Prevent text wrapping */
-}
-
-/* Specific background adjustment for light mode to ensure visibility */
-body.light-mode .github-link {
-  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Lighter border */
+  border-radius: 9999px; /* Absolute pill shape */
+  color: #fff !important; /* Force white text */
+  text-decoration: none !important; /* Force remove underline */
+  font-family: "Outfit", sans-serif; /* Explicit font */
+  font-size: 1rem;
+  font-weight: 600; /* Bolder text */
+  letter-spacing: 0.5px;
+  line-height: 1;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  white-space: nowrap;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .github-link:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-body.light-mode .github-link:hover {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff !important;
 }
 
 .github-link svg {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0; /* Prevent icon from squashing */
-  display: block;
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  flex-shrink: 0;
 }
 
 /* Theme Toggle Button */
