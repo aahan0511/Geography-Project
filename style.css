@@ -153,6 +153,10 @@ body {
   top: 0;
 }
 
+.slide:not(:last-child) {
+  margin-bottom: 25vh; /* Added "pause" buffer between slides, except for the last one */
+}
+
 /* Glass Panel */
 .glass-panel {
   background: var(--panel-bg);
@@ -388,10 +392,9 @@ h3 {
 }
 .signature {
   margin-top: 2rem;
-  font-family:
-    "Sacramento", cursive; /* Fallback if not loaded, sticking to Playfair Italic */
+  font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: var(--accent-gold);
 }
 

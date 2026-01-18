@@ -113,20 +113,21 @@ slides.forEach((slide, i) => {
   }
 
   // READABILITY FIX: Only blur the immediate previous slide
-  // When a slide (i) is fully covered by the next slide (i+1), 
-  // we hide the slide BEFORE it (i-1). 
+  // When a slide (i) is fully covered by the next slide (i+1),
+  // we hide the slide BEFORE it (i-1).
   // This ensures Slide (i+2) only blurs Slide (i+1).
   if (i > 0) {
     const prevSlide = slides[i - 1];
-    
-    // When the NEXT slide (i+1) starts entering, hide the slide BEFORE this one (i-1)
+
+    // When the NEXT slide (i+1) starts ENTERING THE VIEWPORT,
+    // we start fading the slide BEFORE this one.
     if (i < slides.length - 1) {
       const nextSlide = slides[i + 1];
       ScrollTrigger.create({
         trigger: nextSlide,
-        start: "top bottom",
-        onEnter: () => gsap.to(prevSlide, { opacity: 0, duration: 0.3 }),
-        onLeaveBack: () => gsap.to(prevSlide, { opacity: 1, duration: 0.3 }),
+        start: "top bottom", // As the next slide enters from the bottom
+        onEnter: () => gsap.to(prevSlide, { opacity: 0, duration: 0.4 }),
+        onLeaveBack: () => gsap.to(prevSlide, { opacity: 1, duration: 0.4 }),
       });
     }
   }
